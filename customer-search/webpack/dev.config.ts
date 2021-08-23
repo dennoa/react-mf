@@ -14,7 +14,7 @@ const config = {
     rules,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
   },
   plugins: [
     ...commonPlugins,
@@ -25,7 +25,7 @@ const config = {
     contentBase: path.normalize(path.join(__dirname, '..', 'build')),
     historyApiFallback: true,
     port: 3001,
-    open: true,
+    open: false,
     hot: true
   },
 };

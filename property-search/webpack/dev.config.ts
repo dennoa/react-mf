@@ -25,7 +25,7 @@ const config = {
     contentBase: path.normalize(path.join(__dirname, '..', 'build')),
     historyApiFallback: true,
     port: 3002,
-    open: true,
+    open: false,
     hot: true
   },
 };

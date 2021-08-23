@@ -13,6 +13,10 @@ const rules = [
       },
     },
   },
+  {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader'],
+  },
 ];
 
 export default rules;
