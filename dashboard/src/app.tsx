@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CustomerSearch from './components/customer-search';
+import PropertySearch from './components/property-search';
 import VehicleSearch from './components/vehicle-search';
 
 export default function App(): React.ReactElement {
@@ -8,6 +9,7 @@ export default function App(): React.ReactElement {
     <>
       <h1>Dashboard</h1>
       <CustomerSearch />
+      <PropertySearch />
       <VehicleSearch />
     </>
   );

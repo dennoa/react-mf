@@ -1,15 +1,18 @@
 import path from 'path';
 import webpack from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import commonPlugins from './common-plugins';
 import rules from './common-rules';
 
-const config = {
-  mode: 'development',
+const config: webpack.Configuration = {
+  mode: 'production',
+  entry: './src/index.tsx',
   output: {
+    path: path.normalize(path.join(__dirname, '..', 'build')),
+    filename: '[name].[contenthash].js',
     publicPath: 'auto',
   },
-  entry: './src/index',
   module: {
     rules,
   },
@@ -18,16 +21,8 @@ const config = {
   },
   plugins: [
     ...commonPlugins,
-    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
   ],
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.normalize(path.join(__dirname, '..', 'build')),
-    historyApiFallback: true,
-    port: 3003,
-    open: true,
-    hot: true
-  },
 };
 
 export default config;

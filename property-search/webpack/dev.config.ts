@@ -24,7 +24,7 @@ const config = {
   devServer: {
     contentBase: path.normalize(path.join(__dirname, '..', 'build')),
     historyApiFallback: true,
-    port: 3003,
+    port: 3002,
     open: true,
     hot: true
   },
