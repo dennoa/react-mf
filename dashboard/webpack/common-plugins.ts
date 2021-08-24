@@ -7,7 +7,8 @@ import { dependencies } from '../package.json';
 
 const { ModuleFederationPlugin } = webpack.container;
 
-const shared = Object.entries(dependencies).reduce((result, [key, requiredVersion]) => ({
+const shared = Object.entries(dependencies)
+  .reduce((result, [key, requiredVersion]) => ({
     ...result,
     [key]: { singleton: true, eager: true, requiredVersion },
   }), {});
@@ -25,6 +26,6 @@ const plugins = [
       },
       shared,
     }),
-  ];
+];
 
 export default plugins;

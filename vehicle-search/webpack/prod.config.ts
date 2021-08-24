@@ -17,7 +17,7 @@ const config: webpack.Configuration = {
     rules,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
   },
   plugins: [
     ...commonPlugins,
