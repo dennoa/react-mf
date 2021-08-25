@@ -15,6 +15,7 @@ const plugins = [
       name: 'vehicle_search',
       filename: 'remoteEntry.js',
       exposes: {
+        './Details': './src/containers/details',
         './Search': './src/containers/search',
       },
       shared: {

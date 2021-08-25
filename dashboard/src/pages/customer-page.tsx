@@ -4,7 +4,7 @@ import { Card, Tabs } from 'antd';
 
 import CustomerDetails from '../components/customer-details';
 import PropertyDetails from '../components/property-details';
-import VehicleSearch from '../components/vehicle-search';
+import VehicleDetails from '../components/vehicle-details';
 
 interface CustomerPageParams {
   _id: string;
@@ -23,7 +23,7 @@ export default function CustomerPage(): React.ReactElement {
           <PropertyDetails customer_id={+_id} />
         </Tabs.TabPane>
         <Tabs.TabPane key="vehicle" tab="Vehicle Details">
-          <VehicleSearch customer_id={+_id} />
+          <VehicleDetails customer_id={+_id} />
         </Tabs.TabPane>
       </Tabs>
     </Card>

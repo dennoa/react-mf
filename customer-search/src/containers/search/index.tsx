@@ -13,7 +13,12 @@ const StyledSearchForm = styled(SearchForm)`
   margin: 12px;
 `;
 
-const baseUrl = 'https://svx-pre.dataeng.internal:3001/customers?skip=0&limit=100';
+const baseUrl = 'https://svx-pre.dataeng.internal:3001/customers?skip=0&limit=100&include_addresses=true';
+
+interface Address {
+  full_address: string;
+  preferred: boolean;
+}
 
 interface Customer {
   _id: number;
@@ -22,6 +27,7 @@ interface Customer {
   last_name: string;
   date_of_birth: string;
   current_policy_count: number;
+  addresses: Address[];
 }
 
 async function fetcher(url: string, jwt: string, searchParams: SearchParams): Promise<Customer[]|null> {
@@ -70,6 +76,17 @@ export default function Search(props: SearchProps): React.ReactElement {
       title: 'Date of Birth',
       dataIndex: 'date_of_birth',
       render: (dob: string) => (dob || '').substring(0, 10),
+    },
+    {
+      title: 'Address',
+      dataIndex: 'addresses',
+      render: (addresses: Address[]) => {
+        if ((addresses || []).length === 0) {
+          return null;
+        }
+        const addr = addresses.find(addr => addr.preferred) || addresses[0];
+        return addr.full_address;
+      },
     },
     {
       title: 'Current Policies',
