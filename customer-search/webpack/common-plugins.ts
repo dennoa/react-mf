@@ -9,7 +9,7 @@ const { ModuleFederationPlugin } = webpack.container;
 
 const shared = Object.entries(dependencies).reduce((result, [key, requiredVersion]) => ({
     ...result,
-    [key]: { singleton: true, eager: true, requiredVersion },
+    [key]: { singleton: true, eager: false, requiredVersion },
   }), {});
 
 const plugins = [

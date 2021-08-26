@@ -23,7 +23,6 @@ Module federation example using React.
 
 ## Notes
 
-1. Seems to require eager fetching of dependencies to make this work. Not sure what that means for chunking requirements, but I notice that each of the apps produces large chunks instead of multiple smaller ones. Needs more investigation.
 1. Make use of the singleton option for shared libraries since many cannot handle having multiple instances (react-dom and styled-components for example).
 1. The remote component interface (i.e. the properties it exposes) should be managed like any other interface contract. It should normally be simple to maintain backward compatibility. A breaking change can be handled by introducing a new component whilst retaining but deprecating the old. Alteratively, deploy the new build to a different location.
 1. Remote components can have transient state that they can manage internally, but there may also be a need to retain component state beteen mounts / unmounts. For example, the customer search component unmounts when moving to a different page, but we wish to retain both the search criteria and search results so that when we reopen the search page it shows the same information as before. The remote component in this example supports two optional properties: `initialData` and `onDataChange` that address this requirement.

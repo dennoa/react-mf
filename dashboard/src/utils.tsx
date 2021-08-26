@@ -12,13 +12,15 @@ export const getJwt = (): string|null => localStorage.getItem('jwt');
  * e.g. lazyLoad(() => import('./index'));
  */
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-export function lazyLoad(importFunc: () => Promise<{ default: React.ComponentType<any>; }>): (props: unknown) => JSX.Element {
-  const LazyComponent = React.lazy(importFunc);
-  return function load(props: unknown): JSX.Element {
-    return (
-      <React.Suspense fallback={null}>
-        <LazyComponent {...props} />
-      </React.Suspense>
-    );
+type ImportFuncType = () => Promise<{ default: React.ComponentType<any>; }>;
+
+export function lazyLoad(importFunc: ImportFuncType): (props: unknown) => React.ReactElement {
+    const LazyComponent = React.lazy(importFunc);
+    return function load(props: unknown): React.ReactElement {
+      return (
+        <React.Suspense fallback={null}>
+          <LazyComponent {...props} />
+        </React.Suspense>
+      );
+    }
   }
-}

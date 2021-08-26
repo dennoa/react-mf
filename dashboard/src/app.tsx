@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import PrivateRoute from './private-route';
 import { clearJwt } from './utils';
 
-import NavMenu from './nav-menu';
+import NavMenu from './containers/nav-menu/lazy';
 import LoginPage from './pages/login-page/lazy';
 import CustomerPage from './pages/customer-page/lazy';
 import HomePage from './pages/home-page/lazy';
