@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Alert, Card, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import 'antd/dist/antd.css';
-import useSWR from 'swr'; 
 import styled from 'styled-components';
+import useSWR from 'swr';
 
 import { getRequestInit } from '../../utils';
 import SearchForm, { SearchParams } from './search-form';
@@ -20,7 +20,7 @@ interface Address {
   preferred: boolean;
 }
 
-interface Customer {
+export interface Customer {
   _id: number;
   first_name: string;
   middle_name: string;
@@ -30,27 +30,44 @@ interface Customer {
   addresses: Address[];
 }
 
-async function fetcher(url: string, jwt: string, searchParams: SearchParams): Promise<Customer[]|null> {
-  if (!searchParams || !searchParams.name) {
-    return null;
+interface SearchData {
+  params?: SearchParams;
+  customers?: Customer[];
+}
+
+async function fetcher(url: string, jwt: string, params: SearchParams): Promise<SearchData|undefined> {
+  if (!params || !params.name) {
+    return undefined;
   }
-  const res = await fetch(`${url}&name=${encodeURIComponent(searchParams.name)}`, getRequestInit(jwt));
+  const query = `name=${encodeURIComponent(params.name)}`;
+  const res = await fetch(`${url}&${query}`, getRequestInit(jwt));
   if (res.status === 200) {
     const { customers } = await res.json();
-    return customers;
+    return { params, customers };
   }
   throw new Error(res.statusText);
 }
 
 interface SearchProps {
-  jwt?: string;
+  jwt: string;
+  initialData?: SearchData;
+  onDataChange?: (data?: SearchData) => void;
   onSelect?: (cust: Customer) => void;
 }
 
 export default function Search(props: SearchProps): React.ReactElement {
-  const { jwt, onSelect } = props;
-  const [searchParams, setSearchParams] = useState<SearchParams>();
-  const swr = useSWR([baseUrl, jwt, searchParams], fetcher);
+  const { jwt, initialData, onDataChange, onSelect } = props;
+  const initialParams = (initialData || { params: undefined }).params as SearchParams;
+  const [params, setParams] = useState<SearchParams>(initialParams);
+  const swrOptions = {
+    initialData,
+    onSuccess: (data?: SearchData) => {
+      if (onDataChange) {
+        onDataChange(data);
+      }
+    },
+  };
+  const swr = useSWR([baseUrl, jwt, params], fetcher, swrOptions);
 
   const toSortName = (cust: Customer) =>
     `${cust.first_name || ''} ${cust.middle_name || ''} ${cust.last_name || ''}`;
@@ -96,22 +113,25 @@ export default function Search(props: SearchProps): React.ReactElement {
     },
   ];
 
-  const dataSource: Customer[] = swr.data || [];
-
   const onRow = !onSelect ? undefined : (cust: Customer) => ({
     onClick: () => onSelect(cust),
   });
+
+  const { customers } = swr.data || { customers: [] };
 
   return (
     <Card>
       {swr.error && (
         <Alert message={swr.error.message} type="error" showIcon />
       )}
-      <StyledSearchForm onSubmit={setSearchParams} />
+      <StyledSearchForm
+        onSubmit={setParams}
+        initialValues={params}
+      />
       <Table
         rowKey="_id"
         columns={columns}
-        dataSource={dataSource}
+        dataSource={customers}
         onRow={onRow}
         loading={swr.isValidating}
         rowClassName="selectable_row"

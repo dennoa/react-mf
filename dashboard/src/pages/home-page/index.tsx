@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card } from 'antd';
 
-import CustomerSearch, { Customer } from '../components/customer-search';
+import CustomerSearch, { Customer } from '../../containers/customer-search';
 
 export default function HomePage(): React.ReactElement {
   const history = useHistory();

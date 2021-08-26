@@ -11,7 +11,7 @@ const config: webpack.Configuration = {
   output: {
     path: path.normalize(path.join(__dirname, '..', 'build')),
     filename: '[name].[contenthash].js',
-    publicPath: '',
+    publicPath: 'auto',
   },
   module: {
     rules,

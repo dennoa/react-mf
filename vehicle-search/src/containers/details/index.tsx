@@ -87,7 +87,7 @@ export default function Details(props: DetailsProps): React.ReactElement {
   const expandedRowRender = (v: Vehicle) => (
     <Card title="Registration Details" size="small">
       <Table
-        rowKey="plate"
+        rowKey={plate => `${plate.plate}_${plate.state}`}
         columns={plateColumns}
         dataSource={v.plates || []}
         pagination={false}

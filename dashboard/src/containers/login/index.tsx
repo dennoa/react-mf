@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
 import { Alert, Card, Form, Input, Button, Row, Col } from 'antd';
 import styled from 'styled-components';
-
-import { clearJwt, setJwt } from '../utils';
 
 const AuthAlert = styled(Alert)`
   margin-bottom: 16px;
@@ -14,12 +11,15 @@ interface Credentials {
   password: string;
 }
 
-export default function LoginPage(): React.ReactElement {
-  const history = useHistory();
+interface LoginProps {
+  onLogin: (jwt: string) => void;
+  onLoginFailed: () => void;
+}
+
+export default function Login(props: LoginProps): React.ReactElement {
   const [authErr, setAuthErr] = useState<string>();
 
   const onFinish = async (creds: Credentials) => {
-    clearJwt();
     try {
       const res = await fetch('https://svx-pre.dataeng.internal:3001/users-auth', {
         method: 'POST',
@@ -31,13 +31,13 @@ export default function LoginPage(): React.ReactElement {
       });
       if (res.status === 200) {
         const json = await res.json();
-        setJwt(json.jwt);
-        return history.push('/');
+        return props.onLogin(json.jwt);
       }
       setAuthErr(res.statusText);
     } catch (err) {
       setAuthErr(err.message);
     }
+    return props.onLoginFailed();
   };
 
   return (

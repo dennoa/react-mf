@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, Tabs } from 'antd';
 
-import CustomerDetails from '../components/customer-details';
-import PropertyDetails from '../components/property-details';
-import VehicleDetails from '../components/vehicle-details';
+import CustomerDetails from '../../components/customer-details';
+import PropertyDetails from '../../components/property-details';
+import VehicleDetails from '../../components/vehicle-details';
 
 interface CustomerPageParams {
   _id: string;

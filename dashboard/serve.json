@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/customer/**", "destination": "/index.html" }
+  ]
+}
