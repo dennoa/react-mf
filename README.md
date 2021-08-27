@@ -23,8 +23,8 @@ Module federation example using React.
 
 Or if you just want to run it with docker:
 
-1. `. ./docker-build.sh` to build local docker images
-1. `docker compose` to run everything, same ports as above
+1. `docker compose up` to run everything, same ports as above
+1. `docker compose down` to clean up
 
 In any case, it will only work if you run it whilst on the VPN.
 

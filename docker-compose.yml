@@ -1,21 +1,33 @@
 version: "3.9"
 services:
   customer_search:
-    image: dennoa/react_mf_customer_search:latest
+    container_name: react_mf_customer_search
+    build:
+      context: ./customer-search
+    image: dennoa/react_mf_customer_search
     ports:
       - "3001:3001"
 
   property_search:
-    image: dennoa/react_mf_property_search:latest
+    container_name: react_mf_property_search
+    build:
+      context: ./property-search
+    image: dennoa/react_mf_property_search
     ports:
       - "3002:3002"
 
   vehicle_search:
-    image: dennoa/react_mf_vehicle_search:latest
+    container_name: react_mf_vehicle_search
+    build:
+      context: ./vehicle-search
+    image: dennoa/react_mf_vehicle_search
     ports:
       - "3003:3003"
 
   dashboard:
-    image: dennoa/react_mf_dashboard:latest
+    container_name: react_mf_dashboard
+    build:
+      context: ./dashboard
+    image: dennoa/react_mf_dashboard
     ports:
       - "3000:3000"
