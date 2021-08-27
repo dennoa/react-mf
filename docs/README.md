@@ -3,9 +3,11 @@
 Integrating at the user interface means increased reuse and presentation consistency as compared to integration via an API. It offers a way to reduce the complexity of what might otherwise be a monolithic UI application. Integration takes place in the browser instead of a backend server.
 
 Integration in the browser involves surfacing UI artefacts from separate sources into a single application. Each remote UI component is responsible for its own API data concerns.
+
 ![UI Integration](integration_ui.png "UI Integration")
 
 Integration via an API involves surfacing UI artefacts from a single application. That application would typically leverage other APIs via its own backend.
+
 ![API Integration](integration_api.png "API Integration")
 
 ## UI Integration Techniques
