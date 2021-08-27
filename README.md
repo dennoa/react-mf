@@ -21,6 +21,11 @@ Module federation example using React.
 1. `vehicle_search` runs locally on port `3003`: <http://localhost:3003/>
 1. `dashboard` runs locally on port `3000`: <http://localhost:3000/>
 
+Or if you just want to run it with docker:
+
+1. `. ./docker-build.sh` to build local docker images
+1. `docker compose` to run everything, same ports as above
+
 ## Notes
 
 1. Make use of the singleton option for shared libraries since many cannot handle having multiple instances (react-dom and styled-components for example).
