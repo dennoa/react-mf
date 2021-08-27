@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  customer_search:
+    image: dennoa/react_mf_customer_search:latest
+    ports:
+      - "3001:3001"
+
+  property_search:
+    image: dennoa/react_mf_property_search:latest
+    ports:
+      - "3002:3002"
+
+  vehicle_search:
+    image: dennoa/react_mf_vehicle_search:latest
+    ports:
+      - "3003:3003"
+
+  dashboard:
+    image: dennoa/react_mf_dashboard:latest
+    ports:
+      - "3000:3000"
