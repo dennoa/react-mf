@@ -26,6 +26,8 @@ Or if you just want to run it with docker:
 1. `. ./docker-build.sh` to build local docker images
 1. `docker compose` to run everything, same ports as above
 
+In any case, it will only work if you run it whilst on the VPN.
+
 ## Notes
 
 1. Make use of the singleton option for shared libraries since many cannot handle having multiple instances (react-dom and styled-components for example).
