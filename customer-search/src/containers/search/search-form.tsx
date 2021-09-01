@@ -6,6 +6,7 @@ export interface SearchParams {
 }
 
 interface SearchFormProps {
+  componentNamespace: string;
   className?: string;
   onSubmit: (params: SearchParams) => void;
   initialValues?: SearchParams;
@@ -14,7 +15,7 @@ interface SearchFormProps {
 export default function SearchForm(props: SearchFormProps): React.ReactElement {
   return (
     <Form
-      name="search"
+      name={`${props.componentNamespace}_form`}
       layout="inline"
       onFinish={props.onSubmit}
       className={props.className}

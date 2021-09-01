@@ -30,6 +30,7 @@ async function fetcher(url: string, jwt: string): Promise<Customer> {
 interface DetailsProps {
   jwt: string;
   _id: number;
+  componentNamespace?: string;
 }
 
 export default function Details(props: DetailsProps): React.ReactElement {

@@ -7,10 +7,16 @@ import useSWR from 'swr';
 
 import { getRequestInit } from '../../utils';
 import SearchForm, { SearchParams } from './search-form';
-import './search.css';
 
 const StyledSearchForm = styled(SearchForm)`
   margin: 12px;
+`;
+
+const WithSelectableRow = styled.div`
+  tr:hover {
+    cursor: pointer;
+    color: #000000;
+  }
 `;
 
 const baseUrl = 'https://svx-pre.dataeng.internal:3001/customers?skip=0&limit=100&include_addresses=true';
@@ -35,7 +41,7 @@ interface SearchData {
   customers?: Customer[];
 }
 
-async function fetcher(url: string, jwt: string, params: SearchParams): Promise<SearchData|undefined> {
+async function fetcher(url: string, jwt: string, params: SearchParams): Promise<SearchData | undefined> {
   if (!params || !params.name) {
     return undefined;
   }
@@ -50,6 +56,7 @@ async function fetcher(url: string, jwt: string, params: SearchParams): Promise<
 
 interface SearchProps {
   jwt: string;
+  componentNamespace?: string;
   initialData?: SearchData;
   onDataChange?: (data?: SearchData) => void;
   onSelect?: (cust: Customer) => void;
@@ -57,6 +64,7 @@ interface SearchProps {
 
 export default function Search(props: SearchProps): React.ReactElement {
   const { jwt, initialData, onDataChange, onSelect } = props;
+  const componentNamespace = props.componentNamespace || 'customer_search';
   const initialParams = (initialData || { params: undefined }).params as SearchParams;
   const [params, setParams] = useState<SearchParams>(initialParams);
   const swrOptions = {
@@ -125,17 +133,19 @@ export default function Search(props: SearchProps): React.ReactElement {
         <Alert message={swr.error.message} type="error" showIcon />
       )}
       <StyledSearchForm
+        componentNamespace={componentNamespace}
         onSubmit={setParams}
         initialValues={params}
       />
-      <Table
-        rowKey="_id"
-        columns={columns}
-        dataSource={customers}
-        onRow={onRow}
-        loading={swr.isValidating}
-        rowClassName="selectable_row"
-      />
+      <WithSelectableRow>
+        <Table
+          rowKey="_id"
+          columns={columns}
+          dataSource={customers}
+          onRow={onRow}
+          loading={swr.isValidating}
+        />
+      </WithSelectableRow>
     </Card>
   );
 }

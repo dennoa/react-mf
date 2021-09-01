@@ -1,6 +1,7 @@
 import React from 'react';
 
 interface SearchProps {
+  componentNamespace?: string;
   customer_id?: number;
 }
 

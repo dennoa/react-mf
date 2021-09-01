@@ -4,9 +4,16 @@ import { ColumnsType } from 'antd/es/table';
 import 'antd/dist/antd.css';
 import { CheckCircleFilled } from '@ant-design/icons';
 import useSWR from 'swr';
+import styled from 'styled-components';
 
 import { getRequestInit } from '../../utils';
-import './details.css';
+
+const WithSelectableRows = styled.div`
+  tr:hover {
+    cursor: pointer;
+    color: #000000;
+  }
+`;
 
 const svxUrl = 'https://svx-pre.dataeng.internal:3001';
 const customerUrl = `${svxUrl}/customers`;
@@ -44,6 +51,7 @@ async function fetcher(url: string, jwt: string): Promise<Address[]> {
 interface DetailsProps {
   jwt: string;
   customer_id: number;
+  componentNamespace?: string;
 }
 
 async function fetchProperty(addr: Address, jwt: string): Promise<Property> {
@@ -105,14 +113,15 @@ export default function Details(props: DetailsProps): React.ReactElement {
       )}
       <Row>
         <Col sm={12}>
-          <Table
-            rowKey="_id"
-            columns={columns}
-            dataSource={addresses}
-            loading={swr.isValidating}
-            onRow={onRow}
-            rowClassName="selectable_row"
-          />
+          <WithSelectableRows>
+            <Table
+              rowKey="_id"
+              columns={columns}
+              dataSource={addresses}
+              loading={swr.isValidating}
+              onRow={onRow}
+            />
+          </WithSelectableRows>
         </Col>
         <Col sm={12}>
           {selectedIdx >= 0 && (
