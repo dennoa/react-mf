@@ -111,7 +111,7 @@ export default function Details(props: DetailsProps): React.ReactElement {
       {swr.error && (
         <Alert message={swr.error.message} type="error" showIcon />
       )}
-      <Row>
+      <Row gutter={16}>
         <Col sm={12}>
           <WithSelectableRows>
             <Table
@@ -127,17 +127,19 @@ export default function Details(props: DetailsProps): React.ReactElement {
           {selectedIdx >= 0 && (
             <>
               {properties[selectedIdx] ? (
-                <Descriptions column={1}>
-                  <Descriptions.Item label="GNAF">
-                    {properties[selectedIdx].property_id}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Coordinates">
-                    {properties[selectedIdx].centroid.coordinates.join(', ')}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Slope">
-                    {properties[selectedIdx].slope}
-                  </Descriptions.Item>
-                </Descriptions>
+                <Card title={addresses[selectedIdx].full_address}>
+                  <Descriptions column={1}>
+                    <Descriptions.Item label="GNAF">
+                      {properties[selectedIdx].property_id}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Coordinates">
+                      {properties[selectedIdx].centroid.coordinates.join(', ')}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Slope">
+                      {properties[selectedIdx].slope}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Card>
               ) : (
                 <Spin size="large" />
               )}

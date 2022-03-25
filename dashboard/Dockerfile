@@ -1,8 +1,8 @@
-FROM public.docker.nexus3.auiag.corp/node:14
+FROM public.docker.nexus3.auiag.corp/node:16
 
 WORKDIR /usr/app
 
-ARG NPM_REGISTRY="http://registry.npmjs.org"
+ARG NPM_REGISTRY="https://registry.npmjs.org"
 ARG HTTP_PROXY="http://proxy.auiag.corp:8080"
 ARG HTTPS_PROXY="http://proxy.auiag.corp:8080"
 
