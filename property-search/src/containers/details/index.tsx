@@ -54,12 +54,18 @@ interface DetailsProps {
   componentNamespace?: string;
 }
 
+const propertyNotFound = {
+  property_id: undefined,
+  centroid: { coordinates: [] },
+  slope: undefined,
+};
+
 async function fetchProperty(addr: Address, jwt: string): Promise<Property> {
   const url = `${svxUrl}/properties?address=${encodeURIComponent(addr.full_address)}`;
   const res = await fetch(url, getRequestInit(jwt));
   if (res.status === 200) {
     const { properties } = await res.json();
-    return (properties || []).length > 0 ? properties[0] : undefined;
+    return (properties || []).length > 0 ? properties[0] : propertyNotFound;
   }
   throw new Error(res.statusText);
 }
